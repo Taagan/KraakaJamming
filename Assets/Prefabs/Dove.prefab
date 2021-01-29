@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1447126925366080864}
   - component: {fileID: 5178762630004801308}
   - component: {fileID: 727808468914100873}
-  - component: {fileID: 727808468914100885}
   m_Layer: 0
   m_Name: Dove
   m_TagString: Untagged
@@ -167,19 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
   AggroRange: {fileID: 0}
---- !u!114 &727808468914100885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727808468914100884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd388298b5cff44ebaa81d3150f88a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
 --- !u!1 &6434473483597038459
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6434473483597038456}
   - component: {fileID: 6434473483597038457}
+  - component: {fileID: 2980707465341423823}
   m_Layer: 0
   m_Name: AggroRange
   m_TagString: Untagged
@@ -227,3 +214,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 30
+--- !u!114 &2980707465341423823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434473483597038459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd388298b5cff44ebaa81d3150f88a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 727808468914100884}

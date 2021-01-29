@@ -132,6 +132,11 @@ public class Kraakscript2 : MonoBehaviour
         rotationDirection = direction;
     }
 
+    public void TakeDamage(float damage)
+    {
+        healthPoints -= damage;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -194,8 +199,6 @@ public class Kraakscript2 : MonoBehaviour
             if(velocity.magnitude < minSpeedAutoTurningThreshold && !(transform.eulerAngles.z > 270 - autoTurningMinAngleThreshold && transform.eulerAngles.z < 270 + autoTurningMinAngleThreshold))
             {
                 float autoTurningMagnitude = 1 - (velocity.magnitude / minSpeedAutoTurningThreshold);
-
-                Debug.Log(autoTurningMagnitude);
 
                 if (facingRight)
                     autoTurningMagnitude *= -1;

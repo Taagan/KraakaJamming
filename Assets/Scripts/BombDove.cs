@@ -5,7 +5,7 @@ using UnityEngine;
 public class BombDove : Enemy
 {
     public GameObject AggroRange;
-
+    public float damageValue;
 
 
     public override void Attack()
@@ -16,6 +16,7 @@ public class BombDove : Enemy
     public override void Start()
     {
         speed = 35.0f;
+        damageValue = 10;
     }
 
     public override void Update()
@@ -27,9 +28,7 @@ public class BombDove : Enemy
             if (Vector3.Distance(this.transform.position,currentTarget.transform.position) < 30f)
             {
                 this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, speed * Time.deltaTime);
-                //Vector3 targetDirection = currentTarget.transform.position - this.transform.position;
 
-                //Vector3 newDirection = Vector3.RotateTowards(this.transform.forward, targetDirection, 1f, 0.0f);
                 Vector3 difference = currentTarget.transform.position - this.transform.position;
 
                 float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
@@ -42,6 +41,16 @@ public class BombDove : Enemy
             {
                 currentTarget = null;
             }
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag =="Player")
+        {
+            collision.gameObject.GetComponent<Kraakscript2>().TakeDamage(damageValue);
+            Destroy(this);
         }
     }
 
