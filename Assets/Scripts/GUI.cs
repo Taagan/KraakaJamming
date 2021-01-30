@@ -29,7 +29,6 @@ public class GUI : MonoBehaviour
 
         float boostCharge = kraakscript.diveBoostTimer / kraakscript.diveBoostChargeTime;
 
-
         if (boostCharge > 1)
             boostCharge = 1;
 
@@ -37,6 +36,7 @@ public class GUI : MonoBehaviour
             boostChargeSlider.GetComponent<barChangeColorScript>().color2Active = true;
         else
             boostChargeSlider.GetComponent<barChangeColorScript>().color2Active = false;
+
 
         if (energy > 1)
         {
@@ -47,6 +47,7 @@ public class GUI : MonoBehaviour
         {
             energy = 0;
         }
+        
 
         energySlider.value = energy;
         healthSlider.value = health;
