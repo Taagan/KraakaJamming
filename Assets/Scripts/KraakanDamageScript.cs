@@ -60,7 +60,7 @@ public class KraakanDamageScript : MonoBehaviour
     {
         attackTimer = attackStandardTime * lengthMultiplier;
     }
-
+    
     public void IFrame()
     {
         canTakeDamage = false;

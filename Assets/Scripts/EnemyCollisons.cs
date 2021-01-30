@@ -11,7 +11,7 @@ public class EnemyCollisons : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            parent.GetComponent<BombDove>().currentTarget = collision.gameObject;
+            parent.GetComponent<Enemy>().currentTarget = collision.gameObject;
         }
     }
 
@@ -19,7 +19,7 @@ public class EnemyCollisons : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            parent.GetComponent<BombDove>().currentTarget = collision.gameObject;
+            parent.GetComponent<Enemy>().currentTarget = collision.gameObject;
         }
     }
 }
