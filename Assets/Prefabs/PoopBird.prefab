@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 166119123314840589}
   m_Layer: 0
   m_Name: PoopBird
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   poop: {fileID: 6506271206256178194, guid: d0a2bb4f37712524c9bffc6bceffb8a1, type: 3}
   health: 1
-  speed: 0
+  speed: 10
   ignoreDistance: 60
   rotationSpeed: 0
   poopCD: 1

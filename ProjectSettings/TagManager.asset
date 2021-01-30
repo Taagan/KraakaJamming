@@ -9,6 +9,14 @@ TagManager:
   - GrabBox
   - Poop
   - Ground
+  - TeleporterRight
+  - TeleporterLeft
+  - Enemy
+  - Lair
+  - Objective0
+  - Objective1
+  - Objective2
+  - Human
   layers:
   - Default
   - TransparentFX

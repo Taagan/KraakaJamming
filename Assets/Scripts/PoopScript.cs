@@ -18,7 +18,7 @@ public class PoopScript : MonoBehaviour
             Debug.Log(gameObject.name + " took damage");
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag =="Ground")
+        if (collision.gameObject.tag =="Ground" || collision.gameObject.tag == "Human" || collision.gameObject.tag == "Lair")
         {
             Destroy(this.gameObject);
         }

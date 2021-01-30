@@ -8,7 +8,7 @@ abstract public class Enemy : MonoBehaviour
     public GameObject currentTarget;
     protected SpriteRenderer spriteRenderer;
     protected bool facingRight;
-    protected float damageValue;
+    protected float damageValue = 10;
 
     public abstract void  Attack();
     public abstract void Update();

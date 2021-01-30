@@ -57,13 +57,13 @@ public class BombDove : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag =="Player" && collision.gameObject.GetComponentInParent<KraakanDamageScript>().canTakeDamage)
+        if (collision.gameObject.tag =="Player")
         {
-            Debug.Log(gameObject.name + " dealt damage");
-
-            Debug.Log(collision.gameObject.GetComponentInParent<KraakanDamageScript>().canTakeDamage);
+            if (collision.gameObject.GetComponentInParent<KraakanDamageScript>().canTakeDamage)
+            {
             collision.gameObject.GetComponentInParent<KraakanDamageScript>().IFrame();
             collision.gameObject.GetComponent<Kraakscript2>().TakeDamage(damageValue);
+            }
         }
         if (collision.gameObject.tag =="PlayerHitBox")
         {
