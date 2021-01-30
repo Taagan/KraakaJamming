@@ -7,8 +7,10 @@ public class GUI : MonoBehaviour
 {
     public GameObject kraaka;
     public Slider energySlider;
+    public Slider healthSlider;
     public int moralMeter;
     public float energy;
+    public float health;
 
 
     // Start is called before the first frame update
@@ -22,8 +24,9 @@ public class GUI : MonoBehaviour
     {
 
         energy = kraaka.GetComponent<Kraakscript2>().currentEnergy / kraaka.GetComponent<Kraakscript2>().maxEnergy;
+        health = kraaka.GetComponent<Kraakscript2>().healthPoints / kraaka.GetComponent<Kraakscript2>().maxHealthPoints;
 
-            if (energy > 1)
+        if (energy > 1)
             {
                 energy = 1;
             }
@@ -34,5 +37,6 @@ public class GUI : MonoBehaviour
             }
 
         energySlider.value = energy;
+        healthSlider.value = health;
     }
 }

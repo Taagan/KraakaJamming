@@ -61,4 +61,6 @@ public class Objectives : MonoBehaviour
     {
         objective.isOn = true;
     }
+
+
 }

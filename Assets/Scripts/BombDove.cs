@@ -5,8 +5,17 @@ using UnityEngine;
 public class BombDove : Enemy
 {
     public GameObject AggroRange;
+    [SerializeField]
+    public float damageValue;
+    public float speed;
+    public float health = 1;
+    public float ignoreDistance;
+    public float rotationSpeed;
 
 
+    bool facingRight;
+    SpriteRenderer spriteRenderer;
+    
 
     public override void Attack()
     {
@@ -15,35 +24,79 @@ public class BombDove : Enemy
 
     public override void Start()
     {
-        speed = 35.0f;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public override void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
         if (currentTarget != null)
         {
-            Debug.Log("2");
-
             if (Vector3.Distance(this.transform.position,currentTarget.transform.position) < 30f)
             {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, currentTarget.transform.position, speed * Time.deltaTime);
-                //Vector3 targetDirection = currentTarget.transform.position - this.transform.position;
 
-                //Vector3 newDirection = Vector3.RotateTowards(this.transform.forward, targetDirection, 1f, 0.0f);
-                Vector3 difference = currentTarget.transform.position - this.transform.position;
+                Vector2 difference = currentTarget.transform.position - this.transform.position;
+
 
                 float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-                this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
-                Debug.Log("b");
+                Quaternion rotation = Quaternion.AngleAxis(rotationZ, Vector3.forward);
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+
+
+                this.transform.position += this.transform.right * speed * Time.deltaTime;
 
             }
-            else if (Vector3.Distance(this.transform.position, currentTarget.transform.position) > 30f)
+            else if (Vector3.Distance(this.transform.position, currentTarget.transform.position) > ignoreDistance)
             {
                 currentTarget = null;
             }
         }
+        AutoRotate();
     }
 
 
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag =="Player" && collision.gameObject.GetComponentInParent<KraakanDamageScript>().canTakeDamage)
+        {
+            Debug.Log(gameObject.name + " dealt damage");
+
+            Debug.Log(collision.gameObject.GetComponentInParent<KraakanDamageScript>().canTakeDamage);
+            collision.gameObject.GetComponentInParent<KraakanDamageScript>().IFrame();
+            collision.gameObject.GetComponent<Kraakscript2>().TakeDamage(damageValue);
+        }
+        if (collision.gameObject.tag =="PlayerHitBox")
+        {
+            Debug.Log(gameObject.name + " took damage");
+            TakeDamage(collision.gameObject.GetComponentInParent<KraakanDamageScript>().damage);
+        }
+    }
+
+    private void AutoRotate()
+    {
+
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z <= 270)
+        {
+            facingRight = false;
+            if (!spriteRenderer.flipY)
+                spriteRenderer.flipY = true;
+        }
+        else
+        {
+            facingRight = true;
+            if (spriteRenderer.flipY)
+                spriteRenderer.flipY = false;
+        }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        health -= damage;
+    }
 }
