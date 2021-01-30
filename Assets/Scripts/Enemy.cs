@@ -4,13 +4,12 @@ using UnityEngine;
 
 abstract public class Enemy : MonoBehaviour
 {
-    protected int hp;
-    protected float speed;
     public GameObject currentTarget;
 
     public abstract void  Attack();
     public abstract void Update();
     public abstract void Start();
+    public abstract void TakeDamage(float damage);
 
 
 }
