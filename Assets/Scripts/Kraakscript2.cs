@@ -26,7 +26,14 @@ public class Kraakscript2 : MonoBehaviour
     public float currentEnergy = 100f;
 
     public float diveBoostSpeed = 100f;//speedbost gotten when exiting dive
-    public float diveBoostCooldown = 2f;//seconds between dive boost being accessible
+    public float diveBoostChargeTime = 1.5f;
+    public float diveBoostPerfectMultiplier = 1.5f;
+    public float diveBoostPerfectTolerance = .3f;//seconds after dive boost is charged that the perfectmultiplier will be applied
+    [HideInInspector]
+    public bool diveBoostPerfect = false;
+    //public float diveBoostCooldown = 2f;//seconds between dive boost being accessible
+    [HideInInspector]
+    public float diveBoostTimer = 0f;
     
     public Vector3 forwardVector { get { return transform.right; } }//borde alltid vara transform.right, om jag tänkt rätt här...
     public Vector3 upVector { get { return facingRight ? transform.up : -transform.up; } }//depending on which way you are flipped it should either be transform.up or -transform.up
@@ -45,8 +52,6 @@ public class Kraakscript2 : MonoBehaviour
     protected bool facingRight = true;//facingRight = true betyder att fågeln inte är upp och ner när den tittar högerut asså, använd för att hitta upåtvektor
     protected Vector3 velocity;
 
-    protected float diveBoostTimer = 0f;
-    protected float flapTimer = 0f;
 
     protected float currentDrag;
 
@@ -58,14 +63,6 @@ public class Kraakscript2 : MonoBehaviour
     protected float rotationCoefficient = 1;//implement later, possible changes in speed of rotation depending on speed and if diving etc..
     
     public bool DEBUG_ARROWS = false;
-
-    /*
-     * KORT BESKRIVNING HÄR ASSÅ:
-     * fågeln rör sig framåt med fart när vingarna är ute. Flappa me dem för att accelerera, eller flyg neråt.
-     * när man "dyker" tar man in vingarna, har mindre drag, och accelererar neråt me gravitationen och kan rotera fritt utan att styra fågeln.
-     * När man slutar dyka, om man kan, så aktiveras dykboosten i fågelns framåtriktning och man börjar flyga igen.
-     * man kan inte flyga långsammare än minSpeed, då påverkar drag inte en.
-     */
 
 
     // Start is called before the first frame update
@@ -79,7 +76,7 @@ public class Kraakscript2 : MonoBehaviour
 
     public void StartFlapping()
     {
-        if(flapTimer <= 0)
+        if (!flapping)
         {
             flapping = true;
             animator.SetBool("flaxar", true);
@@ -94,13 +91,14 @@ public class Kraakscript2 : MonoBehaviour
         {
             flapping = false;
             animator.SetBool("flaxar", false);
-            flapTimer = flappingCooldown;
         }
     }
 
     public void StartDive()
     {
         diving = true;
+        diveBoostTimer = 0;
+        diveBoostPerfect = false;
         animator.SetBool("dyker", true);
         if (flapping)
             StopFlapping();
@@ -111,18 +109,36 @@ public class Kraakscript2 : MonoBehaviour
         diving = false;
         animator.SetBool("dyker", false);
 
+        float boostMultiplier = 0;
+
+        if (diveBoostTimer > diveBoostChargeTime)
+            boostMultiplier = 1;
+        else if (diveBoostTimer < diveBoostChargeTime && diveBoostTimer > 0)
+            boostMultiplier = diveBoostTimer / diveBoostChargeTime;
+
+        if (diveBoostPerfect)
+            boostMultiplier *= diveBoostPerfectMultiplier;
+
+        Vector3 boost = forwardVector * diveBoostSpeed * boostMultiplier;
+
         float magnitudeBefore = velocity.magnitude;
-        
-        if (diveBoostTimer <= 0)
-        {
-            diveBoostTimer = diveBoostCooldown;
-            velocity += forwardVector * diveBoostSpeed;
-        }
 
-        if (velocity.magnitude < magnitudeBefore * .5f)
-            velocity += forwardVector * magnitudeBefore * .5f;
+        //if the boost would have only slowed you down, you instead get the full boost speed in the direcion you are looking, should also allow you to instantly stop, maybe..
+        if ((velocity + boost).magnitude < magnitudeBefore)
+            velocity = boost;
+        else
+            velocity += boost; //else the boost is added to you current speed
 
+        startedBoosting(boostMultiplier);
     }
+
+    public void startedBoosting(float strength)
+    {
+        //för combatens skull Tim, kan kalla metod i combat-skriptet som typ säger att nu ska du va odödlig och skada andra ett tag.
+        //tänker att strength är hur länge man e odödlig, den baseras på hur stark boost man gjorde, du kan kolla koden i metoden exakt ovanför.
+        //strength kommer vara ett värde mellan 0 och diveBoostPerfectMultiplier.
+    }
+
 
     /// <summary>
     /// </summary>
@@ -158,12 +174,6 @@ public class Kraakscript2 : MonoBehaviour
             currentDrag = diveDrag;
         else
             currentDrag = wingDrag;
-
-        if (diveBoostTimer > 0)
-            diveBoostTimer -= dT;
-
-        if (flapTimer > 0)
-            flapTimer -= dT;
 
         //rotation
 
@@ -207,7 +217,13 @@ public class Kraakscript2 : MonoBehaviour
             velocity += forwardVector * -gravity * forwardVector.y * dT;
         }
         else if (diving)
+        {
             velocity.y -= gravity * dT;
+            diveBoostTimer += dT;
+
+            if (diveBoostTimer >= diveBoostChargeTime && diveBoostTimer <= diveBoostChargeTime + diveBoostPerfectTolerance)
+                diveBoostPerfect = true;
+        }
 
 
         if (flapping)
