@@ -129,14 +129,13 @@ public class Kraakscript2 : MonoBehaviour
         else
             velocity += boost; //else the boost is added to you current speed
 
+        diveBoostTimer = 0;
         startedBoosting(boostMultiplier);
     }
 
     public void startedBoosting(float strength)
     {
-        //för combatens skull Tim, kan kalla metod i combat-skriptet som typ säger att nu ska du va odödlig och skada andra ett tag.
-        //tänker att strength är hur länge man e odödlig, den baseras på hur stark boost man gjorde, du kan kolla koden i metoden exakt ovanför.
-        //strength kommer vara ett värde mellan 0 och diveBoostPerfectMultiplier.
+        GetComponent<KraakanDamageScript>().StartAttack(strength);
     }
 
 
@@ -180,6 +179,7 @@ public class Kraakscript2 : MonoBehaviour
         else
             currentDrag = wingDrag;
 
+        diveBoostPerfect = false;
         //rotation
 
         transform.Rotate(new Vector3(0, 0, 1), rotationCoefficient*rotationSpeed * rotationDirection * dT);
