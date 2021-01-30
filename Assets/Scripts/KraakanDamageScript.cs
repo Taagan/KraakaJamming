@@ -32,8 +32,6 @@ public class KraakanDamageScript : MonoBehaviour
         }
     }
 
-
-
     public void IFrame()
     {
         canTakeDamage = false;

@@ -27,14 +27,14 @@ public class GUI : MonoBehaviour
         health = kraaka.GetComponent<Kraakscript2>().healthPoints / kraaka.GetComponent<Kraakscript2>().maxHealthPoints;
 
         if (energy > 1)
-            {
-                energy = 1;
-            }
+        {
+            energy = 1;
+        }
 
-            if (energy < 0)
-            {
-                energy = 0;
-            }
+        if (energy < 0)
+        {
+            energy = 0;
+        }
 
         energySlider.value = energy;
         healthSlider.value = health;

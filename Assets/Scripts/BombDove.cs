@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class BombDove : Enemy
 {
-    public GameObject AggroRange;
     [SerializeField]
-    public float damageValue;
+    protected float health = 1;
     public float speed;
-    public float health = 1;
     public float ignoreDistance;
     public float rotationSpeed;
-
-
-    bool facingRight;
-    SpriteRenderer spriteRenderer;
     
 
     public override void Attack()
@@ -31,7 +25,7 @@ public class BombDove : Enemy
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
         if (currentTarget != null)
         {

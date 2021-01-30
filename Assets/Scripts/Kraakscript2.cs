@@ -48,8 +48,8 @@ public class Kraakscript2 : MonoBehaviour
     public float minSpeedAutoTurningThreshold = 20f;//speed which when the bird is under it starts to automatically turn downwards.
     public float autoTurnMaxStrength = 540; //degrees per second it rotates automatically downwards when slow.
     public float autoTurningMinAngleThreshold = 5f;//angle from bottom which it stops autoturning.
-
-    protected bool facingRight = true;//facingRight = true betyder att fågeln inte är upp och ner när den tittar högerut asså, använd för att hitta upåtvektor
+    [HideInInspector]
+    public bool facingRight = true;//facingRight = true betyder att fågeln inte är upp och ner när den tittar högerut asså, använd för att hitta upåtvektor
     protected Vector3 velocity;
 
 
