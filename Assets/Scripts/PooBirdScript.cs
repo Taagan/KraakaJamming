@@ -24,7 +24,6 @@ public class PooBirdScript : Enemy
     public override void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        speed = 10;
         randomValue = 5;
     }
 
@@ -96,7 +95,6 @@ public class PooBirdScript : Enemy
     {
         if (currentTarget != null)
         {
-            Debug.Log(currentTarget.name);
             this.transform.position += this.transform.right * speed * Time.deltaTime;
 
             if (Vector3.Distance(this.transform.position, currentTarget.transform.position) > ignoreDistance)

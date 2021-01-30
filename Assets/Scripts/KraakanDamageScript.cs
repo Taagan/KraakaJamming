@@ -11,7 +11,7 @@ public class KraakanDamageScript : MonoBehaviour
     protected float iTimer = 0;
 
     private SpriteRenderer attack_nebb;
-    private BoxCollider2D hurtBox;
+    private BoxCollider2D hitBox;
 
     [HideInInspector]
     public bool attacking = false;
@@ -24,7 +24,7 @@ public class KraakanDamageScript : MonoBehaviour
     {
         canTakeDamage = true;
         attack_nebb = transform.Find("näbb").GetComponent<SpriteRenderer>();
-        hurtBox = transform.Find("HurtBox").GetComponent<BoxCollider2D>();
+        hitBox = transform.Find("HitBox").GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -45,9 +45,9 @@ public class KraakanDamageScript : MonoBehaviour
 
 
         if (attackTimer > 0)
-            hurtBox.enabled = true;
+            hitBox.enabled = true;
         else
-            hurtBox.enabled = false;
+            hitBox.enabled = false;
 
 
         if (iTimer > 0 || attackTimer > 0)
