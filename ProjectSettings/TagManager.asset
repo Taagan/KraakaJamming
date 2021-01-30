@@ -6,10 +6,6 @@ TagManager:
   tags:
   - PlayerHurtBox
   - PlayerHitBox
-  - Objective0
-  - Lair
-  - Poop
-  - Ground
   layers:
   - Default
   - TransparentFX
