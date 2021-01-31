@@ -251,7 +251,7 @@ MonoBehaviour:
   iFrameTimer: 0.5
   attacking: 0
   attackTimer: 0
-  attackStandardTime: 0.3
+  attackStandardTime: 0.6
 --- !u!114 &2572605194680251164
 MonoBehaviour:
   m_ObjectHideFlags: 0
