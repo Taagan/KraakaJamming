@@ -24,4 +24,9 @@ public class SceneScript : MonoBehaviour
         int i = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(i + 1);
     }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

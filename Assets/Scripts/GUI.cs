@@ -46,7 +46,10 @@ public class GUI : MonoBehaviour
         {
             energy = 0;
         }
-        
+        if (health <= 0)
+        {
+            this.gameObject.GetComponent<SceneScript>().GameOver();
+        }
 
         energySlider.value = energy;
         healthSlider.value = health;
