@@ -14,7 +14,6 @@ public class GUI : MonoBehaviour
     public float energy;
     public float health;
 
-
     // Start is called before the first frame update
     void Start()
     {

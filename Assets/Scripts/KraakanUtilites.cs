@@ -8,22 +8,19 @@ public class KraakanUtilites : MonoBehaviour
     public List<string> stash;
     public List<string> returnedItems;
     public int moral;
+    private bool obj0, obj1, obj2;
     // Start is called before the first frame update
     void Start()
     {
-        
+        obj0 = false;
+        obj1 = false;
+        obj2 = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            foreach (string item in stash)
-            {
-                Debug.Log(item);
-            }
-        }
         if (heldItem != null)
         {
             if (gameObject.GetComponent<Kraakscript2>().facingRight)
@@ -55,6 +52,18 @@ public class KraakanUtilites : MonoBehaviour
         {
             if (collision.gameObject.tag == "Lair" && heldItem != null)
             {
+                if (heldItem.tag=="Objective0")
+                {
+                    obj0 = true;
+                }
+                else if (heldItem.tag == "Objective1")
+                {
+                    obj1 = true;
+                }
+                else if (heldItem.tag == "Objective2")
+                {
+                    obj2 = true;
+                }
                 stash.Add(heldItem.name);
                 Destroy(heldItem);
                 heldItem = null;
