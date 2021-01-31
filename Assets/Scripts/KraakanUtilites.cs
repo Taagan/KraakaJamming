@@ -86,16 +86,21 @@ public class KraakanUtilites : MonoBehaviour
     {
         if (i == 0)
         {
+            Debug.Log(obj0 + "= true");
             obj0 = true;
             objectives.GetComponent<Objectives>().CompleteObjectives(0);
         }
         if (i == 1)
         {
+            Debug.Log(obj1 + "= true");
+
             obj1 = true;
             objectives.GetComponent<Objectives>().CompleteObjectives(1);
         }
         if (i == 2)
         {
+            Debug.Log(obj2 + "= true");
+
             obj2 = true;
             objectives.GetComponent<Objectives>().CompleteObjectives(2);
         }
