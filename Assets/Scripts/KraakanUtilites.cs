@@ -22,6 +22,11 @@ public class KraakanUtilites : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (obj0 == true && obj1 == true && obj2 == true)
+        {
+            objectives.GetComponent<SceneScript>().NextLevel();
+        }
+
         if (heldItem != null)
         {
             if (gameObject.GetComponent<Kraakscript2>().facingRight)
