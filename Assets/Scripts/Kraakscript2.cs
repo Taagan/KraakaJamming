@@ -8,6 +8,16 @@ public class Kraakscript2 : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
 
+    public GameObject right_marker;
+    public GameObject left_marker;
+    public GameObject bottom_marker;
+    public GameObject top_marker;
+
+    protected float rightX;
+    protected float leftX;
+    protected float topY;
+    protected float bottomY;
+
     public float healthPoints = 100;
     public float maxHealthPoints = 100;
 
@@ -71,6 +81,11 @@ public class Kraakscript2 : MonoBehaviour
         velocity = new Vector3(InitialVelocity, 0);
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        leftX = left_marker.transform.position.x;
+        rightX = right_marker.transform.position.x;
+        topY = top_marker.transform.position.y;
+        bottomY = bottom_marker.transform.position.y;
     }
 
 
@@ -244,8 +259,22 @@ public class Kraakscript2 : MonoBehaviour
         //apply drag, exponential to limit maxspeed
         velocity -= (velocity * currentDrag) * (velocity.magnitude * currentDrag) * dT;
 
+        Vector3 newPos = transform.position + velocity * dT;
+
+        if (newPos.x > rightX)
+            newPos.x = leftX + (newPos.x - rightX);
+        else if (newPos.x < leftX)
+            newPos.x = rightX + (newPos.x - leftX);
+
+        if (newPos.y > topY)
+            newPos.y = topY;
+        else if (newPos.y < bottomY)
+            newPos.y = bottomY;
+
+
         //move the transform by velocity
-        transform.position += velocity * dT;
+        transform.position = newPos;
+        
 
         //reset rotation
         rotationDirection = 0;
