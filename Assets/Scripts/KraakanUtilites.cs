@@ -65,6 +65,7 @@ public class KraakanUtilites : MonoBehaviour
                 {
                     obj2 = true;
                 }
+
                 stash.Add(heldItem.name);
                 Destroy(heldItem);
                 heldItem = null;
@@ -101,12 +102,14 @@ public class KraakanUtilites : MonoBehaviour
         {
             if (collision.gameObject.tag =="Human"+i && item.tag =="Objective"+i)
             {
+                Debug.Log(i);
                 ObjToTrue(i);
                 returnedItems.Add(item.name);
                 collision.gameObject.GetComponent<NPCScript>().Happy();
                 moral++;
-                heldItem = null;
+
                 Destroy(item);
+                heldItem = null;
             }
         }
     }
