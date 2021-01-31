@@ -64,5 +64,23 @@ public class Objectives : MonoBehaviour
         objective.isOn = true;
     }
 
+    public void CompleteObjectives(int index)
+    {
+        if (index == 0)
+        {
+            ObjectiveComplete(topToggle.GetComponent<Toggle>());
+        }
+        else if (index == 1)
+        {
+            ObjectiveComplete(midToggle.GetComponent<Toggle>());
+
+        }
+        else if (index == 2)
+        {
+            ObjectiveComplete(botToggle.GetComponent<Toggle>());
+
+        }
+    }
+
 
 }

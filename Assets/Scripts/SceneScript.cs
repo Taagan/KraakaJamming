@@ -18,4 +18,10 @@ public class SceneScript : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+
+    public void NextLevel()
+    {
+        int i = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(i + 1);
+    }
 }
