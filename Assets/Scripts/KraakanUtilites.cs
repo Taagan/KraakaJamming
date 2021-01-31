@@ -56,10 +56,10 @@ public class KraakanUtilites : MonoBehaviour
             if (collision.gameObject.tag == "Lair" && heldItem != null)
             {
                 stash.Add(heldItem.name);
-                DestroyObject(heldItem);
+                Destroy(heldItem);
                 heldItem = null;
             }
-            else if (collision.gameObject.tag == "Human")
+            else
             {
                 GiveBackItem(heldItem, collision);
             }
@@ -77,6 +77,7 @@ public class KraakanUtilites : MonoBehaviour
                 collision.gameObject.GetComponent<NPCScript>().Happy();
                 moral++;
                 heldItem = null;
+                Destroy(item);
             }
         }
     }

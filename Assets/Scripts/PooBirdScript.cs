@@ -18,7 +18,7 @@ public class PooBirdScript : Enemy
 
     public override void Attack()
     {
-        Instantiate(poop, new Vector3(this.transform.position.x, this.transform.position.y - 1), Quaternion.identity);
+        Instantiate(poop, new Vector3(this.transform.position.x, this.transform.position.y - 1, -5), Quaternion.identity);
     }
 
     public override void Start()
