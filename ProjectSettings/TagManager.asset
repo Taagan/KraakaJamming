@@ -17,6 +17,9 @@ TagManager:
   - Objective1
   - Objective2
   - Human
+  - Human0
+  - Human1
+  - Human2
   layers:
   - Default
   - TransparentFX

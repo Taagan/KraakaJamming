@@ -5,6 +5,7 @@ using UnityEngine;
 public class KraakanUtilites : MonoBehaviour
 {
     public GameObject heldItem;
+    GameObject objectives;
     public List<string> stash;
     public List<string> returnedItems;
     public int moral;
@@ -15,7 +16,7 @@ public class KraakanUtilites : MonoBehaviour
         obj0 = false;
         obj1 = false;
         obj2 = false;
-
+        objectives = GameObject.Find("GameManager");
     }
 
     // Update is called once per frame
@@ -75,13 +76,32 @@ public class KraakanUtilites : MonoBehaviour
         }
     }
 
+    private void ObjToTrue(int i)
+    {
+        if (i == 0)
+        {
+            obj0 = true;
+            objectives.GetComponent<Objectives>().CompleteObjectives(0);
+        }
+        if (i == 1)
+        {
+            obj1 = true;
+            objectives.GetComponent<Objectives>().CompleteObjectives(1);
+        }
+        if (i == 2)
+        {
+            obj2 = true;
+            objectives.GetComponent<Objectives>().CompleteObjectives(2);
+        }
+    }
 
     public void GiveBackItem(GameObject item, Collision2D collision)
     {
         for (int i = 0; i < 3; i++)
         {
-            if (collision.gameObject.tag =="Objective"+i && item.tag =="Objective"+i)
+            if (collision.gameObject.tag =="Human"+i && item.tag =="Objective"+i)
             {
+                ObjToTrue(i);
                 returnedItems.Add(item.name);
                 collision.gameObject.GetComponent<NPCScript>().Happy();
                 moral++;
