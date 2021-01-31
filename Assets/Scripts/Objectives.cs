@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Objectives : MonoBehaviour
 {
+
     public GameObject topToggle;
     public GameObject midToggle;
     public GameObject botToggle;
@@ -13,6 +14,7 @@ public class Objectives : MonoBehaviour
     public string topObjective;
     public string midObjective;
     public string botObjective;
+
 
     private List<GameObject> toggles;
     private int toggleIndex = 0;
