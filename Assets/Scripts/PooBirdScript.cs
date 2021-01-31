@@ -95,7 +95,11 @@ public class PooBirdScript : Enemy
     {
         if (currentTarget != null)
         {
-            this.transform.position += this.transform.right * speed * Time.deltaTime;
+            //this.transform.position += this.transform.right * speed * Time.deltaTime;
+            if(facingRight)
+                transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+            else
+                transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
 
             if (Vector3.Distance(this.transform.position, currentTarget.transform.position) > ignoreDistance)
             {
